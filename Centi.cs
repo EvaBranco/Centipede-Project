@@ -29,7 +29,7 @@ namespace Centipede
         ///  actual code for centipede movement. moves left to right until it hits an obstacle or a wall,
         ///  and then goes down one level and heads in the opposite direction.
         /// </summary>
-        public void movement(Rectangle cageL, cageR, cageB, mushR)
+        public void movement(Rectangle cageL, cageR, mushR)
         {
             if (centiR.Intersects(cageL)
                {
