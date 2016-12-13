@@ -142,6 +142,11 @@ namespace Centipede
                 playerR.Y += 5;
             }
 
+            // player is killed by spider
+            if (playerR.intersects(spiderR))
+            {
+                //eva has most basics for this...
+            }
             //this adds a new Bullet object for every time the Space button is pressed
             if (kb.IsKeyDown(Keys.Space) && oldKB.IsKeyDown(Keys.Space))
             {
