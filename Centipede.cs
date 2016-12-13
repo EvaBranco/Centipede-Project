@@ -18,23 +18,33 @@ namespace Centipede
         
         Random rand;
         
+        KeyboardState oldKB;
+        
         int screenWidth = 1;
         int screenHeight = 1;
-        int countdown = 30;
 
+        //Player Sprites
         Rectangle playerR;
         Texture2D player;
+        //Centipede Sprites
         Rectangle centiR;
         Texture2D centi;
+        //Spider Sprites
         Rectangle spiderR;
         Texture2D spider;
+        //Mushroom Sprites
         Rectangle mushR;
         Texture2D mush;
+        //Constraints for Spiders
         Rectangle cageT;
         Rectangle cageB;
         Rectangle cageL;
         Rectangle cageR;
-        Rectangle bulletR;
+        
+        //Bullet Logic Instance Variables
+        List<Bullet> list;
+        Texture2D bulletText;
+        int bulletNum;
 
         bool flag;
 
@@ -49,6 +59,10 @@ namespace Centipede
             // TODO: Add your initialization logic here
             screenWidth = graphics.GraphicsDevice.Viewport.Width;
             screenHeight = graphics.GraphicsDevice.Viewport.Height;
+            
+            oldKB = Keyboard.GetState();
+            
+            rand = new Random();
 
             playerR = new Rectangle(500, 500, 20, 20);
             centiR = new Rectangle(100, 500, 50, 50);
@@ -58,10 +72,11 @@ namespace Centipede
             cageB = new Rectangle(0, screenHeight, screenWidth, 0);
             cageR = new Rectangle(0, 0, 0, screenHeight);
             cageL = new Rectangle(800, 0, 0, screenHeight);
-            bulletR = new Rectangle(500, 500, 10, 5);
-
-            rand = new Random();
-
+            
+            //Bullet Logic Instantiation
+            list = new List<Bullet>();
+            bulletNum = 0;
+            
             flag = false;
 
             base.Initialize();
@@ -80,6 +95,8 @@ namespace Centipede
             centi = Content.Load<Texture2D>("centiCir");
             spider = Content.Load<Texture2D>("bug");
             mush = Content.Load<Texture2D>("blueBox");
+            
+            bulletText = Content.Load<Texture2D>("White Square");
 
             // TODO: use this.Content to load your game content here
         }
@@ -100,8 +117,10 @@ namespace Centipede
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            KeyboardState kb = Keyboard.GetState();
+            
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || kb.IsKeyDown(Keys.Escape))
                 this.Exit();
 
             // TODO: Add your update logic here
@@ -123,6 +142,24 @@ namespace Centipede
                 playerR.Y += 5;
             }
 
+            //this adds a new Bullet object for every time the Space button is pressed
+            if (kb.IsKeyDown(Keys.Space) && oldKB.IsKeyDown(Keys.Space))
+            {
+                list.Add(new Bullet( playerR.X, playerR.Y));
+                bulletNum++;
+            }
+            if(bulletNum>=15)
+            {
+                list.RemoveAt(bulletNum-15);
+            }
+
+            //this one makes sure that every bullet object is moving until it hits the top
+            //this needs to be edited so that it stops after it encounters an object
+            foreach (Bullet bullet in list)
+                bullet.changeRect(top);
+
+            oldKB = kb;
+            
             base.Update(gameTime);
         }
 
@@ -136,6 +173,11 @@ namespace Centipede
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+            //this foreach loop draws every bullet contained in List
+            foreach (Bullet bullet in list)
+            {
+                spriteBatch.Draw(bulletText, bullet.getRect(), Color.White);
+            }
             spriteBatch.Draw(player, playerR, Color.White);
             spriteBatch.Draw(centi, centiR, Color.White);
             spriteBatch.Draw(spider, spiderR, Color.White);
