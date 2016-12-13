@@ -13,14 +13,26 @@ namespace Centipede
         private int screenHeight;
         private int bugspeedx;
         private int bugspeedy;
+        private Rectangle cageT;
+        private Rectangle cageB;
+        private Rectangle cageL;
+        private Rectangle cageR;
+        
 
-        public Spider(int height, int width)
+        public Spider(int height, int width, Rectangle cageT, Rectangle cageB, Rectangle cageL, Rectangle cageR)
         {
             spiderR = new Rectangle(400, 100, 30, 30);
             bugspeedy = 5;
             bugspeedx = 5;
             screenHeight = height;
             screenWidth = width;
+            //double check that this is correct
+            this.cageT = cageT;
+            this.cageB = cageB;
+            this.cageL = cageL;
+            this.cageR = cageR;
+        
+            movement();
         }
 
         public Rectangle getRect()
@@ -28,7 +40,7 @@ namespace Centipede
             return spiderR;
         }
 
-        public void movement(Rectangle cageL, cageR, cageT, cageB)
+        private void movement()
         {
             //Spider Movement
             spiderR.X += bugspeedx;
