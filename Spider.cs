@@ -26,11 +26,10 @@ namespace Centipede
 
         public void movement(Rectangle cageL, cageR, cageT, cageB)
         {
+            //Spider Movement
             spiderR.X += bugspeedx;
             spiderR.Y += bugspeedy;
-
-
-
+            //Spider Constraints
             if (spiderR.Intersects(cageL))
             {
                 spiderR.X = screenWidth / 2;
@@ -39,18 +38,15 @@ namespace Centipede
             {
                 spiderR.X = screenWidth / 2;
             }
-
-
             if (spiderR.Intersects(cageB))
             {
                 spiderR.Y *= -1;
             }
-
-
             if (spiderR.Intersects(cageT))
             {
                 spiderR.X *= -1;
             }
+            
         }
     }
 }
