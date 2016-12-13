@@ -18,9 +18,9 @@ namespace Centipede
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+//use the font
         SpriteFont font1;
-
+//stop transfer
         Texture2D playerTex;
         Rectangle playerRect;
 
