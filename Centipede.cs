@@ -144,6 +144,17 @@ namespace Centipede
                         sList.RemoveAt(0);
                 }
             }
+            int getRid = 0;
+            foreach(Mushroom mush in mList)
+            {
+                switch(mush.damaged())
+                {
+                    case "destroyed": mList.RemoveAt(getRid); break;
+                    case "damaged: break;
+                    case "safe": break;
+                }
+                getRid++;
+            }
             
             //Mushroom Blocks Player
             foreach(Mushroom mushR in mList)
@@ -151,7 +162,7 @@ namespace Centipede
                 if(playerR.Intersects(mushR.getRect()))
                     flag = true;
                 else
-                    flag = false; 
+                    flag = false;
             }
             
             if (!flag)
