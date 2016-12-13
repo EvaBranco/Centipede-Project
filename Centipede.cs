@@ -20,8 +20,6 @@ namespace Centipede
         
         int screenWidth = 1;
         int screenHeight = 1;
-        int bugspeedx = 5;
-        int bugspeedy = 5;
         int countdown = 30;
 
         Rectangle playerR;
@@ -112,27 +110,6 @@ namespace Centipede
             //Bullet Damages
             if (spiderR.Intersects(bulletR))
             {
-            }
-
-            //Spider Movements
-            spiderR.X += bugspeedx;
-            spiderR.Y += bugspeedy;
-            //Spider Constraints to bottom of screen
-            if (spiderR.Intersects(cageL))
-            {
-                spiderR.X = screenWidth / 2;
-            }
-            if (spiderR.Intersects(cageR))
-            {
-                spiderR.X = screenWidth / 2;
-            }
-            if (spiderR.Intersects(cageB))
-            {
-                spiderR.Y *= -1;
-            }
-            if (spiderR.Intersects(cageT))
-            {
-                spiderR.X *= -1;
             }
             
             //Mushroom Blocks Player
