@@ -31,7 +31,7 @@ namespace Centipede
 
         int playerSpeedX;
         int playerSpeedY;
-
+//use from below in main code
         int screenWidth;
         int screenHeight;
 
@@ -77,7 +77,7 @@ namespace Centipede
             left = new Rectangle(800, 0, 0, screenHeight);
 
             right = new Rectangle(0, 0, 0, screenHeight);
-
+//use from below in main code
             nowString1 = "" + score1;
 
             score1 = 0;
@@ -98,7 +98,7 @@ namespace Centipede
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-
+//use the sprite font
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             playerTex = Content.Load<Texture2D>("Spider");
@@ -133,7 +133,7 @@ namespace Centipede
                 || kb.IsKeyDown(Keys.Escape))
                 this.Exit();
             // TODO: Add your update logic here
-            
+            //<transfer to main code>
             
             //=======================================================================================
             // GAME STATE CODE
@@ -240,7 +240,9 @@ namespace Centipede
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+            //use drawstring 
             spriteBatch.DrawString(font1, nowString1, new Vector2(250, 50), Color.White);
+            //ignore rest of code
             spriteBatch.Draw(playerTex, playerRect, Color.White);
             //spriteBatch.Draw(spiderTex, spiderRect, Color.White);
             spriteBatch.End();
