@@ -19,18 +19,17 @@ namespace Centipede
         private Rectangle cageR;
         
 
-        public Spider(int height, int width, Rectangle cageT, Rectangle cageB, Rectangle cageL, Rectangle cageR)
+        public Spider(int height, int width)
         {
             spiderR = new Rectangle(400, 100, 30, 30);
             bugspeedy = 5;
             bugspeedx = 5;
             screenHeight = height;
             screenWidth = width;
-            //double check that this is correct
-            this.cageT = cageT;
-            this.cageB = cageB;
-            this.cageL = cageL;
-            this.cageR = cageR;
+            cageT = new Rectangle(0,screenHeight/4,screenWidth,5);
+            cageB = new Rectangle(0, screenHeight, screenWidth, 0);
+            cageR = new Rectangle(0, 0, 0, screenHeight);
+            cageL = new Rectangle(800, 0, 0, screenHeight);
         
             movement();
         }
