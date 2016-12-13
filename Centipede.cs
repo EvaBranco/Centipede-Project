@@ -33,11 +33,10 @@ namespace Centipede
         Texture2D centi;
         
         //Spider Logic Instance Variables
-        List
+        List<Spider> sList;
         Texture2D spider;
         
         //Mushroom Sprites
-        Rectangle mushR;
         Texture2D mush;
         
         //Bullet Logic Instance Variables
