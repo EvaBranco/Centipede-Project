@@ -40,12 +40,6 @@ namespace Centipede
         Rectangle mushR;
         Texture2D mush;
         
-        //Constraints for Spiders
-        Rectangle cageT;
-        Rectangle cageB;
-        Rectangle cageL;
-        Rectangle cageR;
-        
         //Bullet Logic Instance Variables
         List<Bullet> bList;
         Texture2D bulletText;
@@ -72,10 +66,6 @@ namespace Centipede
             playerR = new Rectangle(500, 500, 20, 20);
             centiR = new Rectangle(100, 500, 50, 50);
             mushR = new Rectangle(450, 450, 10, 10);
-            cageT = new Rectangle(0,screenHeight/4,screenWidth,5);
-            cageB = new Rectangle(0, screenHeight, screenWidth, 0);
-            cageR = new Rectangle(0, 0, 0, screenHeight);
-            cageL = new Rectangle(800, 0, 0, screenHeight);
             
             //Bullet Logic Instantiation
             bList = new List<Bullet>();
