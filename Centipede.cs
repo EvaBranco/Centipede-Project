@@ -17,6 +17,7 @@ namespace Centipede
         SpriteBatch spriteBatch;
         
         Random rand;
+        int timer = 600;
         
         KeyboardState oldKB;
         
@@ -26,15 +27,19 @@ namespace Centipede
         //Player Sprites
         Rectangle playerR;
         Texture2D player;
+        
         //Centipede Sprites
         Rectangle centiR;
         Texture2D centi;
-        //Spider Sprites
-        Rectangle spiderR;
+        
+        //Spider Logic Instance Variables
+        List
         Texture2D spider;
+        
         //Mushroom Sprites
         Rectangle mushR;
         Texture2D mush;
+        
         //Constraints for Spiders
         Rectangle cageT;
         Rectangle cageB;
@@ -42,7 +47,7 @@ namespace Centipede
         Rectangle cageR;
         
         //Bullet Logic Instance Variables
-        List<Bullet> list;
+        List<Bullet> bList;
         Texture2D bulletText;
         int bulletNum;
 
@@ -66,7 +71,6 @@ namespace Centipede
 
             playerR = new Rectangle(500, 500, 20, 20);
             centiR = new Rectangle(100, 500, 50, 50);
-            spiderR = new Rectangle(400, 100, 30, 30);
             mushR = new Rectangle(450, 450, 10, 10);
             cageT = new Rectangle(0,screenHeight/4,screenWidth,5);
             cageB = new Rectangle(0, screenHeight, screenWidth, 0);
@@ -74,10 +78,16 @@ namespace Centipede
             cageL = new Rectangle(800, 0, 0, screenHeight);
             
             //Bullet Logic Instantiation
-            list = new List<Bullet>();
+            bList = new List<Bullet>();
             bulletNum = 0;
             
+            //Spider Logic Instantiation
+            sList = new List<Spider>();
+                
             flag = false;
+            
+            timer += rand.nextInt(120);
+
 
             base.Initialize();
         }
@@ -124,11 +134,22 @@ namespace Centipede
                 this.Exit();
 
             // TODO: Add your update logic here
-            //int timer = countdown;
+            //Spider Spawn Logic
             
+            timer--;
+            if(timer==0)
+                sList.Add(new Spider(screenHeight,screenWidth));
+            if(sList.Count==0)
+                timer = 600 + rand.nextInt(120);
+                
             //Bullet Damages
-            if (spiderR.Intersects(bulletR))
+            foreach(Spider spider in sList)
             {
+                foreach(Bullet bullet in bList)
+                {
+                    if(spider.getRect().Intersects(bullet.getRect()))
+                        sList.RemoveAt(0);
+                }
             }
             
             //Mushroom Blocks Player
@@ -150,17 +171,17 @@ namespace Centipede
             //this adds a new Bullet object for every time the Space button is pressed
             if (kb.IsKeyDown(Keys.Space) && oldKB.IsKeyDown(Keys.Space))
             {
-                list.Add(new Bullet( playerR.X, playerR.Y));
+                bList.Add(new Bullet( playerR.X, playerR.Y));
                 bulletNum++;
             }
             if(bulletNum>=15)
             {
-                list.RemoveAt(bulletNum-15);
+                bList.RemoveAt(bulletNum-15);
             }
 
             //this one makes sure that every bullet object is moving until it hits the top
             //this needs to be edited so that it stops after it encounters an object
-            foreach (Bullet bullet in list)
+            foreach (Bullet bullet in bList)
                 bullet.changeRect(top);
 
             oldKB = kb;
@@ -178,14 +199,17 @@ namespace Centipede
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
-            //this foreach loop draws every bullet contained in List
-            foreach (Bullet bullet in list)
+            //this foreach loop draws every bullet contained in bList
+            foreach (Bullet bullet in bList)
             {
                 spriteBatch.Draw(bulletText, bullet.getRect(), Color.White);
             }
+            foreach (Spider spiderR in sList)
+            {
+                spriteBatch.Draw(spider, spiderR.getRect(), Color.White);
+            }
             spriteBatch.Draw(player, playerR, Color.White);
             spriteBatch.Draw(centi, centiR, Color.White);
-            spriteBatch.Draw(spider, spiderR, Color.White);
             spriteBatch.Draw(mush, mushR, Color.White);
             spriteBatch.End();
             base.Draw(gameTime);
