@@ -23,14 +23,9 @@ namespace Centipede
         public String damaged(Rectangle bullet)
         {
             if(bullet.Intersects(mushR))
-            {
                 damageCounter++;
-                return "damaged";
-            }
             if(damageCounter==3)
-            {
                 return "destroyed";
-            }
             return "safe";
         }
         
