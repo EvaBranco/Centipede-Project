@@ -32,14 +32,15 @@ namespace Centipede
         Rectangle centiR;
         Texture2D centi;
         
-        //Spider Logic Instance Variables
+        //Spider Object Instance Variables
         List<Spider> sList;
         Texture2D spider;
         
-        //Mushroom Sprites
+        //Mushroom Object Instance Variables
+        List<Mushroom> mList;
         Texture2D mush;
         
-        //Bullet Logic Instance Variables
+        //Bullet Onject Instance Variables
         List<Bullet> bList;
         Texture2D bulletText;
         int bulletNum;
@@ -66,12 +67,15 @@ namespace Centipede
             centiR = new Rectangle(100, 500, 50, 50);
             mushR = new Rectangle(450, 450, 10, 10);
             
-            //Bullet Logic Instantiation
+            //Bullet Object Instantiation
             bList = new List<Bullet>();
             bulletNum = 0;
             
-            //Spider Logic Instantiation
+            //Spider Object Instantiation
             sList = new List<Spider>();
+            
+            //Mushroom Object Instantiation
+            mList = new List<Mushroom>();
                 
             flag = false;
             
@@ -123,8 +127,8 @@ namespace Centipede
                 this.Exit();
 
             // TODO: Add your update logic here
-            //Spider Spawn Logic
             
+            //Spider Spawn Logic
             timer--;
             if(timer==0)
                 sList.Add(new Spider(screenHeight,screenWidth));
@@ -142,21 +146,22 @@ namespace Centipede
             }
             
             //Mushroom Blocks Player
-            if(playerR.Intersects(mushR))
-                flag = true;
-            else
-                flag = false; 
+            foreach(Mushroom mushR in mList)
+            {
+                if(playerR.Intersects(mushR.getRect()))
+                    flag = true;
+                else
+                    flag = false; 
+            }
+            
             if (!flag)
             {
                 playerR.X += 5;
                 playerR.Y += 5;
             }
 
-            // player is killed by spider
-            if (playerR.intersects(spiderR))
-            {
-                //eva has most basics for this...
-            }
+            //ADD SPIDER KILLS PLAYER LOGIC
+            
             //this adds a new Bullet object for every time the Space button is pressed
             if (kb.IsKeyDown(Keys.Space) && oldKB.IsKeyDown(Keys.Space))
             {
@@ -199,7 +204,10 @@ namespace Centipede
             }
             spriteBatch.Draw(player, playerR, Color.White);
             spriteBatch.Draw(centi, centiR, Color.White);
-            spriteBatch.Draw(mush, mushR, Color.White);
+            foreach(Mushroom mushR in mList)
+            {
+                spriteBatch.Draw(mush, mushR.getRect(), Color.White);
+            }            
             spriteBatch.End();
             base.Draw(gameTime);
         }
