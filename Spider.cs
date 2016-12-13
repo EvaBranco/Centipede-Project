@@ -9,14 +9,18 @@ namespace Centipede
     {
         //Instance Vriables
         private Rectangle spiderR;
-        int screenWidth = 1;
-        int screenHeight = 1;
-        int bugspeedx = 5;
-        int bugspeedy = 5;
+        private int screenWidth;
+        private int screenHeight;
+        private int bugspeedx;
+        private int bugspeedy;
 
-        public Spider()
+        public Spider(int height, int width)
         {
             spiderR = new Rectangle(400, 100, 30, 30);
+            bugspeedy = 5;
+            bugspeedx = 5;
+            screenHeight = height;
+            screenWidth = width;
         }
 
         public Rectangle getRect()
