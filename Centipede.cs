@@ -11,16 +11,13 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Centipede
 {
-    /// <summary>
-    /// This is the main type for your game
-    /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        
         Random rand;
-
+        
         int screenWidth = 1;
         int screenHeight = 1;
         int bugspeedx = 5;
@@ -49,12 +46,6 @@ namespace Centipede
             Content.RootDirectory = "Content";
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
@@ -116,18 +107,17 @@ namespace Centipede
                 this.Exit();
 
             // TODO: Add your update logic here
-            int timer = countdown;
-
+            //int timer = countdown;
+            
+            //Bullet Damages
             if (spiderR.Intersects(bulletR))
             {
-
             }
 
-           spiderR.X += bugspeedx;
-           spiderR.Y += bugspeedy;
-
-
-
+            //Spider Movements
+            spiderR.X += bugspeedx;
+            spiderR.Y += bugspeedy;
+            //Spider Constraints to bottom of screen
             if (spiderR.Intersects(cageL))
             {
                 spiderR.X = screenWidth / 2;
@@ -136,29 +126,25 @@ namespace Centipede
             {
                 spiderR.X = screenWidth / 2;
             }
-
-
             if (spiderR.Intersects(cageB))
             {
                 spiderR.Y *= -1;
             }
-
-
             if (spiderR.Intersects(cageT))
             {
                 spiderR.X *= -1;
             }
-
-
-            flag = playerR.Intersects(mushR);
-
+            
+            //Mushroom Blocks Player
+            if(playerR.Intersects(mushR))
+                flag = true;
+            else
+                flag = false; 
             if (!flag)
             {
                 playerR.X += 5;
                 playerR.Y += 5;
             }
-            
-            
 
             base.Update(gameTime);
         }
