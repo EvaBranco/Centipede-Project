@@ -28,9 +28,10 @@ namespace Centipede
         Rectangle playerR;
         Texture2D player;
         
-        //Centipede Sprites
-        Rectangle centiR;
+        //Centipede Object Instance Variables
+        List<Centi> cList;
         Texture2D centi;
+        int centiNum;
         
         //Spider Object Instance Variables
         List<Spider> sList;
@@ -64,8 +65,10 @@ namespace Centipede
             rand = new Random();
 
             playerR = new Rectangle(500, 500, 20, 20);
-            centiR = new Rectangle(100, 500, 50, 50);
-            mushR = new Rectangle(450, 450, 10, 10);
+            
+            //Centipede Instantiation
+            cList = new List<Centi>();
+            centiNum = 0;
             
             //Bullet Object Instantiation
             bList = new List<Bullet>();
@@ -144,6 +147,7 @@ namespace Centipede
                         sList.RemoveAt(0);
                 }
             }
+            
             int getRid = 0;
             foreach(Mushroom mush in mList)
             {
@@ -154,6 +158,8 @@ namespace Centipede
                     case "safe": break;
                 }
                 getRid++;
+                if(getRid>mList.Count-1)
+                    getRid=0;
             }
             
             //Mushroom Blocks Player
@@ -214,7 +220,10 @@ namespace Centipede
                 spriteBatch.Draw(spider, spiderR.getRect(), Color.White);
             }
             spriteBatch.Draw(player, playerR, Color.White);
-            spriteBatch.Draw(centi, centiR, Color.White);
+            foreach(Centi centiR in cList)
+            {
+                spriteBatch.Draw(centi, centiR.getRect(), Color.White);
+            }
             foreach(Mushroom mushR in mList)
             {
                 spriteBatch.Draw(mush, mushR.getRect(), Color.White);
