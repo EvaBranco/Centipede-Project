@@ -150,7 +150,7 @@ namespace Centipede
                 switch(mush.damaged())
                 {
                     case "destroyed": mList.RemoveAt(getRid); break;
-                    case "damaged: break;
+                    case "damaged": break;
                     case "safe": break;
                 }
                 getRid++;
