@@ -9,12 +9,10 @@ namespace Centipede
     {
         //instance variables
         private Rectangle centiR;
-        int screenWidth = 1;
-        int screenHeight = 1;
-        int Cspeedx = 5;
-        int Cspeedy = 0;
+        private int Cspeedx = 5;
+        private int Cspeedy = 0;
 
-        //centipede rect.
+        //centipede constructor
         public Centi()
         {
             centiR = new Rectangle(0, 0, 50, 50);
