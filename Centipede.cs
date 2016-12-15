@@ -137,7 +137,8 @@ namespace Centipede
                 sList.Add(new Spider(screenHeight,screenWidth));
             if(sList.Count==0)
                 timer = 600 + rand.nextInt(120);
-                
+            //Mushroom Spawn Logic
+
             //Bullet Damages
             foreach(Spider spider in sList)
             {
