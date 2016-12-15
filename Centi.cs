@@ -9,8 +9,8 @@ namespace Centipede
     {
         //instance variables
         private Rectangle centiR;
-        private int Cspeedx = 5;
-        private int Cspeedy = 0;
+        private int cSpeedX = 5;
+        private int cSpeedY = 0;
 
         //centipede constructor
         public Centi()
@@ -30,18 +30,19 @@ namespace Centipede
         public void movement(Rectangle cageL, Rectangle cageR, Rectangle mushR)
         {
             if (centiR.Intersects(cageL)
-               {
-                 Cspeedx *= -1;
-                 Cspeedy -= 1;
-               }
+            {
+                cSpeedX *= -1;
+                cSpeedY *= -1;
+            }
             if (centiR.Intersects(cageR)
-               { Cspeedx *= -1;
-                Cspeedy -= 1;
-               }
+            { 
+                cSpeedX *= -1;
+                cSpeedY *= -1;
+            }
             if (centiR.Intersects(mushR))
             {
-                Cspeedx *= -1;
-                Cspeedy -= 1;
+                cSpeedX *= -1;
+                cSpeedY *= -1;
             }
         }
 
